@@ -1,7 +1,6 @@
 <template>
   <el-dialog v-model="dialogVisible" title="对话框标题" @close="handleClose">
     <div class="post-header">
-      {{weibo}}
       <span class="screen-name">{{ weibo.screen_name }}</span>
       <span class="created-at">{{weibo.created_at }}</span>
     </div>
@@ -20,9 +19,9 @@
       </template>
     </div>
     <div class="post-footer">
-      <el-button type="text" icon="el-icon-thumb">{{ weibo.attitudes_count }}</el-button>
-      <el-button type="text" icon="el-icon-share">{{ weibo.reposts_count }}</el-button>
-      <el-button type="text" icon="el-icon-chat-dot-round">{{ weibo.comments_count }}</el-button>
+      <el-button type="text" icon="el-icon-thumb">点赞数: {{ weibo.attitudes_count }}</el-button>
+      <el-button type="text" icon="el-icon-share">转发数: {{ weibo.reposts_count }}</el-button>
+      <el-button type="text" icon="el-icon-chat-dot-round">评论数: {{ weibo.comments_count }}</el-button>
     </div>
   </el-dialog>
 </template>
