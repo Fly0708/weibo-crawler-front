@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="dialogVisible" title="对话框标题" @close="handleClose">
+  <el-dialog v-model="dialogVisible" title="" @close="handleClose">
     <div class="post-header">
       <span class="screen-name">{{ weibo.screen_name }}</span>
       <span class="created-at">{{weibo.created_at }}</span>
@@ -9,13 +9,17 @@
       <template v-if="weibo.video_url">
         <video controls :src="weibo.video_url" class="media-item"></video>
       </template>
+      <!-- 图片 -->
       <template v-else-if="weibo.pics">
-        <img
+        <el-image
             v-for="(pic, index) in weibo.pics.split(',')"
             :key="index"
             :src="pic"
             class="media-item"
-        />
+            :preview-src-list="weibo.pics.split(',')"
+            :initial-index="index"
+            fit="cover"
+        ></el-image>
       </template>
     </div>
     <div class="post-footer">
@@ -103,5 +107,17 @@ const handleClose = () => {
   display: flex;
   justify-content: flex-start;
   gap: 10px;
+}
+
+.dialog-content {
+  max-height: 80vh; /* 限制对话框内容的最大高度 */
+  overflow-y: auto; /* 允许垂直滚动 */
+}
+
+.preview-image {
+  width: 100%; /* 图片宽度适应对话框 */
+  height: auto; /* 高度自动缩放 */
+  display: block; /* 避免图片下方有空白 */
+  object-fit: cover;
 }
 </style>

@@ -7,12 +7,12 @@
         <el-icon>
           <refresh/>
         </el-icon>
-        刷新
+        Refresh
       </el-button>
     </div>
     <!-- 表格 -->
     <el-table :data="tableData" style="width: 100%" class="custom-table">
-      <el-table-column prop="user_id" label="id" width="120"></el-table-column>
+      <el-table-column prop="id" label="user_id" width="120"></el-table-column>
       <el-table-column prop="screen_name" label="user_name" width="180"></el-table-column>
       <el-table-column prop="gender" label="gender" width="100"></el-table-column>
       <el-table-column prop="statuses_count" label="statuses_count" width="100"></el-table-column>
@@ -51,7 +51,7 @@
 
 <script setup>
 import {onMounted, ref} from 'vue'
-import axios from "axios";
+import request from "@/api/request";
 import {Refresh} from "@element-plus/icons-vue";
 
 // 定义响应式变量
@@ -67,7 +67,7 @@ const fetchData = async () => {
       page_num: currentPage.value,
       page_size: pageSize.value
     };
-    const response = await axios.get('http://localhost:8000/bloggers/page', {params});
+    const response = await request.get('/bloggers/page', {params});
     tableData.value = response.data.data;
     total.value = response.data.total;
   } catch (error) {

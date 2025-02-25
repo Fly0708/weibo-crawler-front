@@ -46,8 +46,7 @@
 import {ref, onMounted} from 'vue';
 import WeiboDetailView from "@/components/WeiboDetailView.vue";
 import {Refresh} from '@element-plus/icons-vue'; // 引入刷新图标
-// import request from "@/api/request";
-import axios from "axios";
+import request from "@/api/request";
 
 // 定义响应式变量
 const tableData = ref([]); // 表格数据
@@ -66,7 +65,7 @@ const fetchData = async () => {
       user_id: inputUserId.value,
       screen_name: inputUserName.value,
     };
-    const response = await axios.get('http://localhost:8000/weibo/page', {params});
+    const response = await request.get('/weibo/page', {params});
     tableData.value = response.data.data;
     total.value = response.data.total;
   } catch (error) {

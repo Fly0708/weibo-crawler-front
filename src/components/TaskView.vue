@@ -36,21 +36,29 @@
 <script setup>
 import {onMounted, ref} from 'vue'
 import {Refresh} from "@element-plus/icons-vue";
-import axios from "axios";
 import moment from "moment";
+import { ElMessage } from 'element-plus';
+import request from "@/api/request";
 
 const inputUserId = ref("")
 const inputStartDate = ref("")
 
 const addTask = async () => {
-  console.log(inputUserId.value);
-  console.log(inputStartDate.value)
-  await axios.get('http://localhost:8000/tasks/add', {
+  if (!inputUserId.value) {
+    ElMessage.error('User ID 不能为空');
+    return;
+  }
+  if (!inputStartDate.value) {
+    ElMessage.error("Start Day 不能为空")
+    return;
+  }
+  await request.get('/tasks/add', {
     params:{
       user_id:inputUserId.value,
       start_day:moment(inputStartDate.value).format('YYYY-MM-DD'),
     }
   })
+  await fetchData()
 }
 
 // 定义响应式变量
@@ -66,7 +74,7 @@ const fetchData = async () => {
       page_num: currentPage.value,
       page_size: pageSize.value
     };
-    const response = await axios.get('http://localhost:8000/tasks/page', {params});
+    const response = await request.get('/tasks/page', {params});
     tableData.value = response.data.data;
     total.value = response.data.total;
   } catch (error) {
