@@ -12,6 +12,9 @@
         <el-menu-item index="weibo">
           <span>Weibo</span>
         </el-menu-item>
+        <el-menu-item index="ctrip">
+          <span>Ctrip</span>
+        </el-menu-item>
       </el-menu>
     </el-aside>
 
@@ -27,6 +30,7 @@ import { ref } from 'vue'
 import Task from './components/TaskView.vue'
 import Blogger from './components/BloggerView.vue'
 import Weibo from './components/WeiboView.vue'
+import Ctrip from './components/CtipView.vue'
 
 export default {
   name: 'App',
@@ -34,6 +38,7 @@ export default {
     Task,
     Blogger,
     Weibo,
+    Ctrip
   },
   setup() {
     const activeTab = ref('task') // 默认选中的菜单项
